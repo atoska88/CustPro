@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custpro>
+  <configuration name="android" keyValueSeparator="=">
+    <affix name="file" prefix="" suffix=""/>
+    <affix name="property" prefix="" suffix=""/>
+    <affix name="key" prefix="" suffix=""/>
+    <affix name="value" prefix="" suffix=""/>
+  </configuration>
+</custpro>
