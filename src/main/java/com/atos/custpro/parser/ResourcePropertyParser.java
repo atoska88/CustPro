@@ -28,6 +28,11 @@ public class ResourcePropertyParser implements PropertyParser, ResourceLoaderAwa
     public Properties parse(final String resourcePath, final FileStructure fileStructure) {
         Resource resource = resourceLoader.getResource(resourcePath);
         logger.debug("Input resourcePath parsed into {}.", resource);
+        return parseFromResource(resource, fileStructure);
+    }
+
+    private Properties parseFromResource(final Resource resource, final FileStructure fileStructure) {
+
         return null;
     }
 

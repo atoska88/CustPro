@@ -1,9 +1,11 @@
 package com.atos.custpro.configuration.domain;
 
+import com.atos.custpro.configuration.domain.affix.LiteralAffix;
+
 /**
  * Contains the structure of the input file. A complicated properties
  * file can have many parts, which can be prefixes and suffixes - so
- * affixes. This class works with the {@link Affix} class mainly.
+ * affixes. This class works with the {@link LiteralAffix} class mainly.
  * @author atos
  *
  */

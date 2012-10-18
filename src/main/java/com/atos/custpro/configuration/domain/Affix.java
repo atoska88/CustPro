@@ -1,51 +1,46 @@
 package com.atos.custpro.configuration.domain;
 
+import com.atos.custpro.configuration.domain.exception.InvalidFileStructureException;
+
 /**
- * Contains a prefix and a suffix and some helper methods for handling
- * affixes.
+ * The affix is constructed from two strings which are the prefix and
+ * suffix. The prefix stands before, the suffix stands after a
+ * character sequence. This interface does not support infixes which
+ * can be inside the a character sequence.
+ * The interface contains some helper methods that can be used for
+ * creating affixed strings or to remove it from a string. Note that
+ * it is not sure to all implementations implements these methods.
  * @author atos
  *
  */
-public final class Affix {
-
-    private static final String EMPTY_STRING = "";
-    private final String prefix;
-    private final String suffix;
-
-    /**
-     * Constructs an empty affix with empty prefix and suffix.
-     */
-    public Affix() {
-        this(EMPTY_STRING, EMPTY_STRING);
-    }
-
-    /**
-     * Constructs a new affix with the given parameters.
-     * @param prefix the prefix, that is before a character sequence
-     * @param suffix the suffix, that is after a character sequence
-     */
-    public Affix(final String prefix, final String suffix) {
-        super();
-        this.prefix = prefix;
-        this.suffix = suffix;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getSuffix() {
-        return suffix;
-    }
+public interface Affix {
 
     /**
      * Bounds the given string with this Affix.
-     * @param target the target string
+     * @param target the target string, can be null.
      * @return the target string bounded by this affix. First the
-     * prefix, the target and the suffix.
+     * prefix, the target and the suffix. If the target was null or
+     * empty then the prefix and affix will be returned.
      *
      */
-    public String putAffixToTarget(final String target) {
-        return prefix + target + suffix;
-    }
+    String putAffixToTarget(String target);
+
+    /**
+     * Removes this affix from the target string.
+     * @param target the target string
+     * @return the target string without the prefix and suffix
+     * @throws InvalidFileStructureException if the target string is
+     * not bounded with this affix
+     */
+    String removeFromTarget(String target) throws InvalidFileStructureException;
+
+    /**
+     * Validates if the given target String is bounded with this
+     * affix.
+     * @param target the target string
+     * @throws InvalidFileStructureException if the target string is
+     * not bounded with this affix
+     */
+    void validateTarget(String target) throws InvalidFileStructureException;
+
 }
