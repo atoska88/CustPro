@@ -16,6 +16,18 @@ import com.atos.custpro.configuration.domain.exception.InvalidFileStructureExcep
 public interface Affix {
 
     /**
+     * Returns the prefix of this Affix.
+     * @return the prefix
+     */
+    String getPrefix();
+
+    /**
+     * Returns the suffix of this Affix.
+     * @return the suffix
+     */
+    String getSuffix();
+
+    /**
      * Bounds the given string with this Affix.
      * @param target the target string, can be null.
      * @return the target string bounded by this affix. First the

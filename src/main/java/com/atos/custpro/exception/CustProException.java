@@ -17,4 +17,12 @@ public class CustProException extends Exception {
         super(message);
     }
 
+    /**
+     * Constructs a new exception with the given cause Throwable.
+     * @param cause the cause that caused the exception
+     */
+    public CustProException(final Throwable cause) {
+        super(cause);
+    }
+
 }

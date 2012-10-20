@@ -1,46 +1,42 @@
 package com.atos.custpro.configuration.provider;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
 
-import com.atos.custpro.configuration.domain.FileStructure;
-import com.atos.custpro.configuration.loader.FileStructureConfigurationLoader;
+import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 import com.atos.custpro.configuration.loader.FileStructureWrapper;
+import com.atos.custpro.configuration.loader.xml.XmlConfigurationLoader;
 
 /**
  * Provides the structuring configurations from XML file(s).
  * @author atos
  *
  */
-public class XmlFileStructureProvider implements FileStructureProvider, ResourceLoaderAware {
+public class XmlFileStructureProvider implements FileStructureConfigurationProvider, ResourceLoaderAware {
 
-    private FileStructureConfigurationLoader configurationLoader;
-    private Map<String, FileStructure> container;
+    private final XmlConfigurationLoader configurationLoader;
+    private final Map<String, FileStructureConfiguration> container;
     private ResourceLoader resourceLoader;
-    private final String[] xmlLocations;
 
     /**
      * Constructs a new object and loads the configurations from the
      * given location(s).
-     * @param xmlLocations the location(s) of the configuration
+     * @param configurationLoader loads the configurations from XML
+     * files
      * file(s)
      */
-    public XmlFileStructureProvider(final String... xmlLocations) {
-        this.xmlLocations = xmlLocations;
+    public XmlFileStructureProvider(final XmlConfigurationLoader configurationLoader) {
+        this.configurationLoader = configurationLoader;
+        container = new HashMap<String, FileStructureConfiguration>();
     }
 
-    /**
-     * Initializes the provider by loading the configuration files.
-     * Must be called before usage.
-     */
-    @PostConstruct
-    public void loadConfigurations() {
+    @Override
+    public void loadConfigurations(final String[] xmlLocations) {
         for (String location : xmlLocations) {
             Resource resource = resourceLoader.getResource(location);
             FileStructureWrapper[] configuration = configurationLoader.load(resource);
@@ -52,7 +48,7 @@ public class XmlFileStructureProvider implements FileStructureProvider, Resource
     }
 
     @Override
-    public FileStructure provide(final String name) {
+    public FileStructureConfiguration provide(final String name) {
         Assert.notEmpty(container, "No file structure configurations are mapped!");
         Assert.isTrue(container.containsKey(name), "There is no file structure configuration mapped with name '" + name + "'!");
         return container.get(name);

@@ -1,16 +1,16 @@
 package com.atos.custpro.configuration.loader;
 
-import com.atos.custpro.configuration.domain.FileStructure;
+import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 
 /**
- * Wraps a {@link FileStructure} configuration with its name.
+ * Wraps a {@link FileStructureConfiguration} configuration with its name.
  * @author atos
  *
  */
 public class FileStructureWrapper {
 
     private final String name;
-    private final FileStructure fileStructure;
+    private final FileStructureConfiguration fileStructure;
 
     /**
      * Constructs a new wrapper with the given objects.
@@ -18,7 +18,7 @@ public class FileStructureWrapper {
      * @param fileStructure the configuration that contains the
      * structure of a properties file
      */
-    public FileStructureWrapper(final String name, final FileStructure fileStructure) {
+    public FileStructureWrapper(final String name, final FileStructureConfiguration fileStructure) {
         super();
         this.name = name;
         this.fileStructure = fileStructure;
@@ -28,7 +28,7 @@ public class FileStructureWrapper {
         return name;
     }
 
-    public FileStructure getFileStructure() {
+    public FileStructureConfiguration getFileStructure() {
         return fileStructure;
     }
 

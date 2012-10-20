@@ -9,13 +9,15 @@ import com.atos.custpro.configuration.domain.affix.LiteralAffix;
  * @author atos
  *
  */
-public class FileStructure {
+public class FileStructureConfiguration {
 
     private Affix fileAffix;
     private Affix propertyAffix;
     private Affix keyAffix;
     private String keyValueSeparator;
     private Affix valueAffix;
+    private String lineTerminator;
+    private String charSet;
 
     public Affix getFileAffix() {
         return fileAffix;
@@ -55,6 +57,22 @@ public class FileStructure {
 
     public void setValueAffix(final Affix valueAffix) {
         this.valueAffix = valueAffix;
+    }
+
+    public String getLineTerminator() {
+        return lineTerminator;
+    }
+
+    public void setLineTerminator(final String lineTerminator) {
+        this.lineTerminator = lineTerminator;
+    }
+
+    public String getCharSet() {
+        return charSet;
+    }
+
+    public void setCharSet(final String charSet) {
+        this.charSet = charSet;
     }
 
 }

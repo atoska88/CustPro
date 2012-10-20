@@ -1,13 +1,15 @@
-package com.atos.custpro.configuration.loader;
+package com.atos.custpro.configuration.loader.xml;
 
 import org.springframework.core.io.Resource;
+
+import com.atos.custpro.configuration.loader.FileStructureWrapper;
 
 /**
  * Loads CustPro configuration file from a {@link Resource}.
  * @author atos
  *
  */
-public interface FileStructureConfigurationLoader {
+public interface XmlConfigurationLoader {
 
     /**
      * Loads the file structure configuration from the given resource.

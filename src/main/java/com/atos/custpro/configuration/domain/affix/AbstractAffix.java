@@ -34,10 +34,12 @@ public abstract class AbstractAffix implements Affix {
         this.suffix = suffix;
     }
 
+    @Override
     public String getPrefix() {
         return prefix;
     }
 
+    @Override
     public String getSuffix() {
         return suffix;
     }

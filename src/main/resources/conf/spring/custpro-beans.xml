@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+
+  <bean id="resourcePropertyParser" class="com.atos.custpro.parser.ResourcePropertyParser">
+    <constructor-arg name="resourceReader" ref="resourceReader" />
+    <constructor-arg name="fileStructureProvider" ref="fileStructureProvider" />
+    <constructor-arg name="stringParser" ref="stringParser" />
+  </bean>
+
+  <bean id="resourceReader" class="com.atos.custpro.io.InputStreamResorceReader" />
+
+  <bean id="fileStructureProvider" class="com.atos.custpro.configuration.provider.XmlFileStructureProvider">
+    <constructor-arg name="configurationLoader" ref="configurationLoader" />
+  </bean>
+
+  <bean id="configurationLoader" class="com.atos.custpro.configuration.loader.xml.JaxbXmlConfigurationLoader" />
+
+  <bean id="stringParser" class="com.atos.custpro.parser.LineStringParser">
+    <constructor-arg name="messageParser" ref="messageParser" />
+  </bean>
+
+  <bean id="messageParser" class="com.atos.custpro.parser.message.SplitterMessageParser" />
+
+</beans>
