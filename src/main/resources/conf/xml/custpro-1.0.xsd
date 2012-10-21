@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="custpro">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="configuration" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="configuration">
+    <xs:complexType>
+        <xs:element id="propertyAffix" maxOccurs="1" ref="affix" />
+        <xs:element id="keyAffix" maxOccurs="1" ref="affix" />
+        <xs:element id="valueAffix" maxOccurs="1" ref="affix" />
+      <xs:attribute name="keyValueSeparator" use="required" />
+      <xs:attribute name="lineTerminator" use="required" />
+      <xs:attribute name="name" use="required" type="xs:NCName" />
+    </xs:complexType>
+    <xs:unique name="UniqueAffixName">
+      <xs:selector xpath="affix" />
+      <xs:field xpath="@name" />
+    </xs:unique>
+  </xs:element>
+
+  <xs:element name="affix">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Affix, contains a prefix and a suffix. The name attribute must be unique.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:ID">
+      </xs:attribute>
+      <xs:attribute name="prefix" default="" use="optional" type="xs:string" />
+      <xs:attribute name="suffix" default="" use="optional" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
