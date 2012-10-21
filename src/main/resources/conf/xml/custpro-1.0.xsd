@@ -12,12 +12,9 @@
 
   <xs:element name="configuration">
     <xs:complexType>
-     <xs:all>
-      <xs:element name="fileAffix" maxOccurs="1" type="affixType" />
-      <xs:element name="propertyAffix" maxOccurs="1" type="affixType" />
-      <xs:element name="keyAffix" maxOccurs="1" type="affixType" />
-      <xs:element name="valueAffix" maxOccurs="1" type="affixType" />
-     </xs:all>
+     <xs:choice>
+      <xs:element name="affix" maxOccurs="4" type="affixType" />
+     </xs:choice>
       <xs:attribute name="keyValueSeparator" use="required" />
       <xs:attribute name="lineTerminator" use="required" />
       <xs:attribute name="name" use="required" type="xs:NCName" />
