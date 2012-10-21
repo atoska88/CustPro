@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://www.github.com/atoska88/custpro" version="1.0"
+  xmlns="http://www.github.com/atoska88/custpro">
   <xs:element name="custpro">
     <xs:complexType>
       <xs:sequence>
@@ -7,11 +9,15 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="configuration">
     <xs:complexType>
-        <xs:element id="propertyAffix" maxOccurs="1" ref="affix" />
-        <xs:element id="keyAffix" maxOccurs="1" ref="affix" />
-        <xs:element id="valueAffix" maxOccurs="1" ref="affix" />
+     <xs:all>
+      <xs:element name="fileAffix" maxOccurs="1" type="affixType" />
+      <xs:element name="propertyAffix" maxOccurs="1" type="affixType" />
+      <xs:element name="keyAffix" maxOccurs="1" type="affixType" />
+      <xs:element name="valueAffix" maxOccurs="1" type="affixType" />
+     </xs:all>
       <xs:attribute name="keyValueSeparator" use="required" />
       <xs:attribute name="lineTerminator" use="required" />
       <xs:attribute name="name" use="required" type="xs:NCName" />
@@ -22,17 +28,23 @@
     </xs:unique>
   </xs:element>
 
-  <xs:element name="affix">
+  <xs:complexType name="affixType">
     <xs:annotation>
       <xs:documentation>
         <![CDATA[Affix, contains a prefix and a suffix. The name attribute must be unique.]]>
       </xs:documentation>
     </xs:annotation>
-    <xs:complexType>
-      <xs:attribute name="name" use="required" type="xs:ID">
+      <xs:attribute id="affixName" name="name" use="required">
+        <xs:simpleType >
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="file" />
+            <xs:enumeration value="property" />
+            <xs:enumeration value="key" />
+            <xs:enumeration value="value" />
+          </xs:restriction>
+        </xs:simpleType>
       </xs:attribute>
       <xs:attribute name="prefix" default="" use="optional" type="xs:string" />
       <xs:attribute name="suffix" default="" use="optional" type="xs:string" />
-    </xs:complexType>
-  </xs:element>
+  </xs:complexType>
 </xs:schema>
