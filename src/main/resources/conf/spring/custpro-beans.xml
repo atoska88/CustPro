@@ -22,12 +22,26 @@
     <constructor-arg name="configurationLoader" ref="configurationLoader" />
   </bean>
 
-  <bean id="configurationLoader" class="com.atos.custpro.configuration.loader.xml.JaxbXmlConfigurationLoader" />
+  <bean id="configurationLoader" class="com.atos.custpro.configuration.loader.xml.JaxbXmlConfigurationLoader">
+    <constructor-arg name="contextProvider" ref="contextProvider" />
+    <constructor-arg name="jaxbTransformer" ref="jaxbTransformer" />
+  </bean>
+
+  <bean id="contextProvider" class="com.atos.custpro.configuration.loader.xml.internal.JaxbContextProvider" />
+
+
+  <bean id="byteArrayOutputStream" class=" java.io.ByteArrayOutputStream" scope="prototype"/>
+
+
+  <bean id="jaxbTransformer"
+    class="com.atos.custpro.configuration.loader.xml.internal.SimpleJaxbConfigurationTransformer" />
 
   <bean id="stringParser" class="com.atos.custpro.parser.LineStringParser">
-    <constructor-arg name="messageParser" ref="messageParser" />
+    <constructor-arg name="messageParser" ref="regexMessageParser" />
   </bean>
 
   <bean id="messageParser" class="com.atos.custpro.parser.message.SplitterMessageParser" />
+  
+  <bean id="regexMessageParser" class="com.atos.custpro.parser.message.RegexMessageParser" />
 
 </beans>

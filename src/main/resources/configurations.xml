@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<custpro>
-  <configuration name="android" keyValueSeparator="=">
-    <affix name="file" prefix="" suffix=""/>
-    <affix name="property" prefix="" suffix=""/>
-    <affix name="key" prefix="" suffix=""/>
-    <affix name="value" prefix="" suffix=""/>
+<custpro xmlns="http://www.github.com/atoska88/custpro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.github.com/atoska88/custpro
+    http://atos.uw.hu/1/custpro-2.9.xsd">
+
+  <configuration name="android" keyValueSeparator="&gt;" lineTerminator="\n">
+    <regexAffix place="file" prefix="&lt;resources&gt;\s*" suffix="\s*&lt;/resources&gt;" numOfCapturingGroupsInPrefix="0"/>
+    <regexAffix place="property" prefix="\s*&lt;string " suffix="" numOfCapturingGroupsInPrefix="0"/>
+    <literalAffix place="key" prefix="name=&quot;" suffix="&quot;" />
+    <literalAffix place="value" prefix="" suffix="&lt;/string&gt;" />
   </configuration>
+
 </custpro>
