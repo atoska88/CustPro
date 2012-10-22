@@ -1,8 +1,11 @@
 package com.atos.custpro.configuration.loader.xml;
 
+import java.io.IOException;
+
 import org.springframework.core.io.Resource;
 
 import com.atos.custpro.configuration.loader.FileStructureWrapper;
+import com.atos.custpro.configuration.loader.xml.exception.XmlParsingException;
 
 /**
  * Loads CustPro configuration file from a {@link Resource}.
@@ -17,6 +20,9 @@ public interface XmlConfigurationLoader {
      * configuration
      * @return an array of fully loaded {@link FileStructureWrapper}
      * objects
+     * @throws IOException when an IO error occurs during the process
+     * @throws XmlParsingException when an error occurs during the XML
+     * parsing
      */
-    FileStructureWrapper[] load(Resource inputResource);
+    FileStructureWrapper[] load(Resource inputResource) throws IOException, XmlParsingException;
 }

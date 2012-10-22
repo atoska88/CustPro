@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.atos.custpro.configuration.domain.exception.InvalidFileStructureException;
+import com.atos.custpro.exception.CustProException;
 
 /**
  * Resolves the properties from a source.
@@ -22,7 +23,7 @@ public interface PropertyParser {
      * during the parsing process
      * @return a {@link Properties} object with parsed from the given
      * path
-     * @throws IOException it an I/O error occurs during parsing
+     * @throws IOException if an I/O error occurs during parsing
      * @throws InvalidFileStructureException if the structure of the
      * input is not valid according to the configuration
      */
@@ -31,7 +32,17 @@ public interface PropertyParser {
     /**
      * Loads the file structure configurations from the given
      * locations.
-     * @param xmlLocations the filenames, wildcards are not supported
+     * @param fileLocations the filenames, wildcards are not supported
+     * @throws IOException if an IO error occurs during loading
+     * @throws CustProException if an internal exception occurs
      */
-    void loadConfigurations(String[] xmlLocations);
+    void loadConfigurations(String[] fileLocations) throws CustProException, IOException;
+
+    /**
+     * Loads the file structure configuarion(s) from the given path.
+     * @param filePath the path of the configuration file
+     * @throws IOException if an IO error occurs during loading
+     * @throws CustProException if an internal exception occurs
+     */
+    void loadConfigurations(String filePath) throws CustProException, IOException;
 }

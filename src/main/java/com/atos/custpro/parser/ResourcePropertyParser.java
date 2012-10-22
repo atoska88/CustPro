@@ -13,6 +13,7 @@ import com.atos.custpro.annotations.Log;
 import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 import com.atos.custpro.configuration.domain.exception.InvalidFileStructureException;
 import com.atos.custpro.configuration.provider.FileStructureConfigurationProvider;
+import com.atos.custpro.exception.CustProException;
 import com.atos.custpro.io.ResourceReader;
 
 /**
@@ -64,8 +65,13 @@ public class ResourcePropertyParser implements PropertyParser, ResourceLoaderAwa
     }
 
     @Override
-    public void loadConfigurations(final String[] configLocations) {
+    public void loadConfigurations(final String[] configLocations) throws CustProException, IOException {
         fileStructureProvider.loadConfigurations(configLocations);
+    }
+
+    @Override
+    public void loadConfigurations(final String filePath) throws CustProException, IOException {
+        loadConfigurations(new String[]{filePath});
     }
 
 }

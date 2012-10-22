@@ -41,10 +41,10 @@ public class LiteralAffix extends AbstractAffix {
     @Override
     public void validateTarget(final String target) throws InvalidFileStructureException {
         if (!isPrefixed(target)) {
-            throw new InvalidFileStructureException("The target string does not starts with this prefix!");
+            throw new InvalidFileStructureException("The target string does not starts with this prefix!" + getPrefix());
         }
         if (!isSuffixed(target)) {
-            throw new InvalidFileStructureException("The target string does not ends with this affix!");
+            throw new InvalidFileStructureException("The target string does not ends with this suffix! " + getSuffix());
         }
     }
 

@@ -1,6 +1,9 @@
 package com.atos.custpro.configuration.provider;
 
+import java.io.IOException;
+
 import com.atos.custpro.configuration.domain.FileStructureConfiguration;
+import com.atos.custpro.exception.CustProException;
 
 /**
  * Provides {@link FileStructureConfiguration} objects for parsing a properties
@@ -26,6 +29,10 @@ public interface FileStructureConfigurationProvider {
      * Must be called before usage.
      * @param configLocations the locations of the configuration
      * files; wildcards are not supported
+     * @throws IOException when an IO error occurs during the
+     * configuration loading
+     * @throws CustProException when a configuration file contains
+     * some error
      */
-    void loadConfigurations(String[] configLocations);
+    void loadConfigurations(String[] configLocations) throws CustProException, IOException;
 }
