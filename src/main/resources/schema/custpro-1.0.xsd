@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://www.github.com/atoska88/custpro" version="1.0"
+  xmlns="http://www.github.com/atoska88/custpro">
+  <xs:element name="custpro">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="configuration" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:choice maxOccurs="4">
+        <xs:element name="regexAffix" type="regexAffix" />
+        <xs:element name="literalAffix" type="literalAffix" />
+      </xs:choice>
+      <xs:attribute name="name" use="required" type="xs:NCName" />
+      <xs:attribute name="charset" default="UTF-8" type="xs:string" />
+      <xs:attribute name="keyValueSeparator" use="required" />
+      <xs:attribute name="lineTerminator" use="required" />
+    </xs:complexType>
+    <xs:unique name="UniqueAffixName">
+      <xs:selector xpath="affix" />
+      <xs:field xpath="place" />
+    </xs:unique>
+  </xs:element>
+
+  <xs:complexType name="affix" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Affix, contains a prefix and a suffix. The name attribute must be unique.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="place" type="affixPlace" use="required" />
+    <xs:attribute name="prefix" default="" use="optional" type="xs:string" />
+    <xs:attribute name="suffix" default="" use="optional" type="xs:string" />
+  </xs:complexType>
+
+  <xs:simpleType name="affixPlace">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="file" />
+      <xs:enumeration value="property" />
+      <xs:enumeration value="key" />
+      <xs:enumeration value="value" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="literalAffix">
+    <xs:complexContent>
+      <xs:extension base="affix">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="regexAffix">
+    <xs:complexContent>
+      <xs:extension base="affix">
+        <xs:attribute name="numOfCapturingGroupsInPrefix" type="xs:integer" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+</xs:schema>
