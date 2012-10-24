@@ -12,7 +12,7 @@
 
   <xs:element name="configuration">
     <xs:complexType>
-      <xs:choice maxOccurs="4">
+      <xs:choice minOccurs="0" maxOccurs="4">
         <xs:element name="regexAffix" type="regexAffix" />
         <xs:element name="literalAffix" type="literalAffix" />
       </xs:choice>
