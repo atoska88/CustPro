@@ -57,6 +57,30 @@ public class RegexAffixTest {
     }
 
     @Test
+    public void testValidateTargetWhenTargetHasTheAffixShouldNotThrowException() throws InvalidFileStructureException {
+        //GIVEN
+        String prefix = "#start";
+        String suffix = "end#";
+        Affix underTest = new RegexAffix(prefix, suffix, 0);
+        String target = "#startinputend#";
+        //WHEN
+        underTest.validateTarget(target);
+        //THEN
+    }
+
+    @Test(expectedExceptions = InvalidFileStructureException.class)
+    public void testValidateTargetWhenTargetDoesNotHaveThePrefixShouldThrowException() throws InvalidFileStructureException {
+        //GIVEN
+        String prefix = "#start";
+        String suffix = "end#";
+        Affix underTest = new RegexAffix(prefix, suffix, 0);
+        String target = "#starinputend#";
+        //WHEN
+        underTest.validateTarget(target);
+        //THEN throws exception
+    }
+
+    @Test
     public void testRemoveFromTargetWhenTargetHasTheAffixShouldReturnTargetWithoutAffix() throws InvalidFileStructureException {
         //GIVEN
         String prefix = "#start";
