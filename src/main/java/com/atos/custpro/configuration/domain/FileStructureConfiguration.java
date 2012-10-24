@@ -11,6 +11,8 @@ import com.atos.custpro.configuration.domain.affix.LiteralAffix;
  */
 public class FileStructureConfiguration {
 
+    private static final Affix EMPTY_AFFIX = new LiteralAffix();
+
     private Affix fileAffix;
     private Affix propertyAffix;
     private Affix keyAffix;
@@ -20,7 +22,7 @@ public class FileStructureConfiguration {
     private String charSet;
 
     public Affix getFileAffix() {
-        return fileAffix;
+        return nullSafeGet(fileAffix);
     }
 
     public void setFileAffix(final Affix fileAffix) {
@@ -28,7 +30,7 @@ public class FileStructureConfiguration {
     }
 
     public Affix getPropertyAffix() {
-        return propertyAffix;
+        return nullSafeGet(propertyAffix);
     }
 
     public void setPropertyAffix(final Affix propertyAffix) {
@@ -36,7 +38,7 @@ public class FileStructureConfiguration {
     }
 
     public Affix getKeyAffix() {
-        return keyAffix;
+        return nullSafeGet(keyAffix);
     }
 
     public void setKeyAffix(final Affix keyAffix) {
@@ -52,7 +54,7 @@ public class FileStructureConfiguration {
     }
 
     public Affix getValueAffix() {
-        return valueAffix;
+        return nullSafeGet(valueAffix);
     }
 
     public void setValueAffix(final Affix valueAffix) {
@@ -75,4 +77,7 @@ public class FileStructureConfiguration {
         this.charSet = charSet;
     }
 
+    private Affix nullSafeGet(final Affix affix) {
+        return affix == null ? EMPTY_AFFIX : affix;
+    }
 }
