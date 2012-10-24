@@ -12,8 +12,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
-import com.atos.custpro.io.support.SpringBeanNameConstants;
-
 /**
  * {@link ResourceReader} implementation that uses the {@link
  * InputStream} of the input {@link Resource}.
@@ -22,47 +20,52 @@ import com.atos.custpro.io.support.SpringBeanNameConstants;
  */
 public class InputStreamResorceReader implements ResourceReader, ApplicationContextAware {
 
+    private static final int DEFAULT_BUFFER_SIZE = 1024;
     private ApplicationContext applicationContext;
 
     @Override
     public byte[] read(final Resource resource) throws IOException {
         Assert.notNull(resource, "Parameter 'resource' can not be null!");
-        ByteArrayOutputStream outputStream = createStream(resource);
-        try {
-            return outputStream.toByteArray();
-        } finally {
-            closeStream(outputStream);
-        }
+        ByteArrayOutputStream outputStream = null;
+        outputStream = createStream(resource);
+        return outputStream.toByteArray();
     }
 
     @Override
     public String readToString(final Resource resource, final String charSet) throws UnsupportedCharsetException, IOException {
         ByteArrayOutputStream outputStream = createStream(resource);
+        return outputStream.toString(charSet);
+    }
+
+    private ByteArrayOutputStream createStream(final Resource resource) throws IOException {
+        ByteArrayOutputStream outputStream = null;
         try {
-            return outputStream.toString(charSet);
+            outputStream = applicationContext.getBean(ByteArrayOutputStream.class);
+            InputStream inputStream = resource.getInputStream();
+            byte[] buffer = new byte[getSizeOfResourceContent(resource)];
+            while (hasDataToWrite(inputStream, buffer)) {
+                outputStream.write(buffer);
+            }
+            return outputStream;
+        } catch (BeansException exception) {
+            throw new IOException(exception.getMostSpecificCause());
         } finally {
             closeStream(outputStream);
         }
     }
 
-    private ByteArrayOutputStream createStream(final Resource resource) throws IOException {
-        ByteArrayOutputStream outputStream = applicationContext.getBean(SpringBeanNameConstants.BYTE_ARRAY_OUTPUT_STREAM_BEAN_NAME,
-                ByteArrayOutputStream.class);
-        InputStream inputStream = resource.getInputStream();
-        byte[] buffer = new byte[(int) resource.contentLength()];
-        while (hasDataToWrite(inputStream, buffer)) {
-            outputStream.write(buffer);
-        }
-        return outputStream;
+    private int getSizeOfResourceContent(final Resource resource) throws IOException {
+        int contentLength = (int) resource.contentLength();
+        return contentLength > 0 ? contentLength : DEFAULT_BUFFER_SIZE;
     }
 
     private boolean hasDataToWrite(final InputStream inputStream, final byte[] buffer) throws IOException {
         return inputStream.read(buffer) != -1;
     }
 
-    private void closeStream(final Closeable outputStream) throws IOException {
-        if (outputStream != null) {
-            outputStream.close();
+    private void closeStream(final Closeable closable) throws IOException {
+        if (closable != null) {
+            closable.close();
         }
     }
 
