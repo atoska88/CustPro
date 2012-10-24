@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.atos.custpro.exception.CustProException;
 import com.atos.custpro.parser.PropertyParser;
 import com.atos.custpro.parser.factory.PropertyParserFactory;
@@ -14,6 +17,8 @@ import com.atos.custpro.parser.factory.PropertyParserFactory;
  * @since 1.0
  */
 public final class Main {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     private Main() {
     }
@@ -26,9 +31,9 @@ public final class Main {
      */
     public static void main(final String[] args) throws CustProException, IOException {
         PropertyParser parser = PropertyParserFactory.getInstance("classpath:configurations.xml");
-        Properties properties = parser.parse("classpath:strings.xml", "android");
+        Properties properties = parser.parse("classpath:strings.strings", "iphone");
         for (Entry<Object, Object> entry : properties.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
+            LOGGER.info(entry.getKey() + " - " + entry.getValue());
         }
     }
 

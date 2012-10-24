@@ -2,13 +2,19 @@
 <custpro xmlns="http://www.github.com/atoska88/custpro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="
     http://www.github.com/atoska88/custpro
-    http://atos.uw.hu/1/custpro-2.9.xsd">
+    http://atos.uw.hu/1/custpro-3.0.xsd">
 
   <configuration name="android" keyValueSeparator="&gt;" lineTerminator="\n">
-    <regexAffix place="file" prefix="&lt;resources&gt;\s*" suffix="\s*&lt;/resources&gt;" numOfCapturingGroupsInPrefix="0"/>
-    <regexAffix place="property" prefix="\s*&lt;string " suffix="" numOfCapturingGroupsInPrefix="0"/>
+    <regexAffix place="file" prefix="&lt;resources&gt;\s*" suffix="\s*&lt;/resources&gt;"
+      numOfCapturingGroupsInPrefix="0" />
+    <regexAffix place="property" prefix="\s*&lt;string " suffix="&lt;/string&gt;"
+      numOfCapturingGroupsInPrefix="0" />
     <literalAffix place="key" prefix="name=&quot;" suffix="&quot;" />
-    <literalAffix place="value" prefix="" suffix="&lt;/string&gt;" />
+    <literalAffix place="value" />
   </configuration>
 
+  <configuration lineTerminator=";" name="iphone" keyValueSeparator="=">
+    <regexAffix place="key" prefix="&quot;" suffix="&quot;\s*" numOfCapturingGroupsInPrefix="0"/>
+    <regexAffix place="value" prefix="\s*&quot;" suffix="&quot;" numOfCapturingGroupsInPrefix="0"/>
+  </configuration>
 </custpro>
