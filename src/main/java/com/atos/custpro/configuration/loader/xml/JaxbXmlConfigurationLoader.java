@@ -9,9 +9,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
+import org.springframework.util.Assert;
 
+import com.atos.custpro.annotations.Log;
 import com.atos.custpro.configuration.loader.FileStructureWrapper;
 import com.atos.custpro.configuration.loader.xml.exception.XmlParsingException;
 import com.atos.custpro.configuration.loader.xml.generated.Configuration;
@@ -27,7 +28,8 @@ import com.atos.custpro.configuration.loader.xml.internal.JaxbContextProvider;
  */
 public class JaxbXmlConfigurationLoader implements XmlConfigurationLoader {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JaxbXmlConfigurationLoader.class);
+    @Log
+    private Logger logger;
     private final JaxbContextProvider contextProvider;
     private final JaxbConfigurationTransformer jaxbTransformer;
 
@@ -45,12 +47,13 @@ public class JaxbXmlConfigurationLoader implements XmlConfigurationLoader {
 
     @Override
     public FileStructureWrapper[] load(final Resource inputResource) throws IOException, XmlParsingException {
-        LOGGER.info("Loading configuration from resource '{}'...", inputResource.getDescription());
+        logger.debug("Loading configuration from resource '{}'...", inputResource.getDescription());
         List<FileStructureWrapper> resultList = new ArrayList<FileStructureWrapper>();
         try {
             JAXBContext context = contextProvider.provide("com.atos.custpro.configuration.loader.xml.generated");
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Custpro rootObject = (Custpro) unmarshaller.unmarshal(inputResource.getInputStream());
+            Assert.notEmpty(rootObject.getConfiguration(), "There aren't any configurations declared in '" + inputResource.getDescription() + "'!");
             for (Configuration config : rootObject.getConfiguration()) {
                 resultList.add(jaxbTransformer.transform(config));
             }
@@ -58,5 +61,9 @@ public class JaxbXmlConfigurationLoader implements XmlConfigurationLoader {
             throw new XmlParsingException("Could not parse XML " + inputResource.getFilename() + "!");
         }
         return resultList.toArray(new FileStructureWrapper[0]);
+    }
+
+    void setLogger(final Logger logger) {
+        this.logger = logger;
     }
 }

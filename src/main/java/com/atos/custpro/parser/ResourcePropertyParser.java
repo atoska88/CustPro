@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -25,7 +24,7 @@ import com.atos.custpro.io.ResourceReader;
 public class ResourcePropertyParser implements PropertyParser, ResourceLoaderAware {
 
     @Log
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger;
     private ResourceLoader resourceLoader;
     private final ResourceReader resourceReader;
     private final FileStructureConfigurationProvider fileStructureProvider;

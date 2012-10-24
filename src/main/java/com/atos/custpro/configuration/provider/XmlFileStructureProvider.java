@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
 
+import com.atos.custpro.annotations.Log;
 import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 import com.atos.custpro.configuration.loader.FileStructureWrapper;
 import com.atos.custpro.configuration.loader.xml.XmlConfigurationLoader;
@@ -23,7 +23,8 @@ import com.atos.custpro.configuration.loader.xml.exception.XmlParsingException;
  */
 public class XmlFileStructureProvider implements FileStructureConfigurationProvider, ResourceLoaderAware {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(XmlFileStructureProvider.class);
+    @Log
+    private Logger logger;
 
     private final XmlConfigurationLoader configurationLoader;
     private final Map<String, FileStructureConfiguration> container;
@@ -43,13 +44,13 @@ public class XmlFileStructureProvider implements FileStructureConfigurationProvi
 
     @Override
     public void loadConfigurations(final String[] xmlLocations) throws XmlParsingException, IOException {
-        LOGGER.info("Loading configurations from {}...", xmlLocations);
+        logger.info("Loading configurations from {}...", xmlLocations);
         for (String location : xmlLocations) {
             Resource resource = resourceLoader.getResource(location);
             FileStructureWrapper[] configuration = configurationLoader.load(resource);
             for (FileStructureWrapper fileStructureWrapper : configuration) {
                 container.put(fileStructureWrapper.getName(), fileStructureWrapper.getFileStructure());
-                LOGGER.debug("Configuration '{}' was loaded successfully.", fileStructureWrapper.getName());
+                logger.debug("Configuration '{}' was loaded successfully.", fileStructureWrapper.getName());
             }
         }
     }
@@ -64,6 +65,10 @@ public class XmlFileStructureProvider implements FileStructureConfigurationProvi
     @Override
     public void setResourceLoader(final ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
+    }
+
+    void setLogger(final Logger logger) {
+        this.logger = logger;
     }
 
 }

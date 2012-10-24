@@ -10,6 +10,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 
+  <bean class="com.atos.custpro.annotations.LogAnnotationPostProcessor"/>
+
   <bean id="resourcePropertyParser" class="com.atos.custpro.parser.ResourcePropertyParser">
     <constructor-arg name="resourceReader" ref="resourceReader" />
     <constructor-arg name="fileStructureProvider" ref="fileStructureProvider" />
@@ -30,7 +32,7 @@
   <bean id="contextProvider" class="com.atos.custpro.configuration.loader.xml.internal.JaxbContextProvider" />
 
 
-  <bean id="byteArrayOutputStream" class=" java.io.ByteArrayOutputStream" scope="prototype"/>
+  <bean id="byteArrayOutputStream" class=" java.io.ByteArrayOutputStream" scope="prototype" />
 
 
   <bean id="jaxbTransformer"
@@ -41,7 +43,7 @@
   </bean>
 
   <bean id="messageParser" class="com.atos.custpro.parser.message.SplitterMessageParser" />
-  
+
   <bean id="regexMessageParser" class="com.atos.custpro.parser.message.RegexMessageParser" />
 
 </beans>
