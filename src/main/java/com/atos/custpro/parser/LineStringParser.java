@@ -29,14 +29,15 @@ public class LineStringParser implements StringParser {
     @Override
     public Properties parse(final String wholeInput, final FileStructureConfiguration configuration) throws InvalidFileStructureException {
         String cleanedInput = configuration.getFileAffix().removeFromTarget(wholeInput);
-        String[] messages = cleanedInput.split(configuration.getLineTerminator());
         Properties result = new Properties();
-        for (String messageLine : messages) {
-            KeyValuePair parseMessage = messageParser.parseMessage(messageLine, configuration);
-            result.put(parseMessage.getKey(), parseMessage.getValue());
+        if (!cleanedInput.isEmpty()) {
+            String[] messages = cleanedInput.split(configuration.getLineTerminator());
+            for (String messageLine : messages) {
+                KeyValuePair parseMessage = messageParser.parseMessage(messageLine, configuration);
+                result.put(parseMessage.getKey(), parseMessage.getValue());
+            }
         }
         return result;
 
     }
-
 }
