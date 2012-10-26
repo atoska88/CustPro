@@ -19,7 +19,7 @@ import com.atos.custpro.configuration.domain.exception.InvalidFileStructureExcep
  */
 public class RegexAffix extends AbstractAffix {
 
-    private static final String REGEX_ANY_PATTERN = "(.*)";
+    private static final String REGEX_ANY_PATTERN = "([\\w\\W]*)";
     private static final String AFFIXED_TARGET_IN_GROUP_PATTERN = "%s(%s)%s";
 
     private final int groupIndex;
