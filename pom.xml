@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.atos</groupId>
-  <artifactId>CustPro</artifactId>
+  <groupId>com.atos</groupId>
+  <artifactId>custPro</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main</sourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -15,6 +15,18 @@
           <target />
         </configuration>
       </plugin>
+      <plugin>
+      <artifactId>maven-jar-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>test-jar</id>
+          <phase>package</phase>
+          <goals>
+            <goal>test-jar</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
     </plugins>
   </build>
   <dependencies>

@@ -10,7 +10,7 @@ import com.atos.custpro.configuration.domain.affix.LiteralAffix;
  */
 public abstract class TestConfigurations {
 
-    public static final FileStructureConfiguration EMPTY_CONFIGURATION = new FileStructureConfiguration();
+    public static final FileStructureConfiguration EMPTY_CONFIGURATION = new FileStructureConfiguration("=", "\n", "UTF-8");
 
     public static final FileStructureConfiguration ANDROID_CONFIGURATION = getAndroidConfig();
 
@@ -31,24 +31,18 @@ public abstract class TestConfigurations {
     private static final String UTF_8_CONSTANT = "UTF-8";
 
     private static FileStructureConfiguration getAndroidConfig() {
-        FileStructureConfiguration androidConfig = new FileStructureConfiguration();
-        androidConfig.setCharSet(UTF_8_CONSTANT);
+        FileStructureConfiguration androidConfig = new FileStructureConfiguration(">", "</string>\n", UTF_8_CONSTANT);
         androidConfig.setFileAffix(new LiteralAffix("<resources>\n", "</resources>"));
         androidConfig.setKeyAffix(new LiteralAffix("name=\"", "\""));
-        androidConfig.setKeyValueSeparator(">");
-        androidConfig.setLineTerminator("</string>\n");
         androidConfig.setPropertyAffix(new LiteralAffix("<string ", ""));
         androidConfig.setValueAffix(new LiteralAffix());
         return androidConfig;
     }
 
     private static FileStructureConfiguration getIphoneConfig() {
-        FileStructureConfiguration iphoneConfig = new FileStructureConfiguration();
-        iphoneConfig.setCharSet(UTF_8_CONSTANT);
+        FileStructureConfiguration iphoneConfig = new FileStructureConfiguration("=", ";\n", UTF_8_CONSTANT);
         iphoneConfig.setFileAffix(new LiteralAffix());
         iphoneConfig.setKeyAffix(new LiteralAffix("\"", "\""));
-        iphoneConfig.setKeyValueSeparator("=");
-        iphoneConfig.setLineTerminator(";\n");
         iphoneConfig.setPropertyAffix(new LiteralAffix());
         iphoneConfig.setValueAffix(new LiteralAffix("\"", "\""));
         return iphoneConfig;
