@@ -15,7 +15,7 @@ import com.atos.custpro.parser.PropertyParser;
  */
 public abstract class PropertyParserFactory {
 
-    private static final String CONFIGURATION_LOCATION = "classpath:conf/spring/custpro-*.xml";
+    private static final String CONFIGURATION_LOCATION = "classpath:conf/spring/custpro-beans.xml";
 
     /**
      * Returns a {@link PropertyParser} instance with loaded with the

@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import com.atos.custpro.configuration.domain.Affix;
 import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 import com.atos.custpro.configuration.domain.exception.InvalidFileStructureException;
+import com.atos.custpro.parser.message.exception.InvalidMessageException;
 
 /**
  * {@link MessageParser} implementation that uses regular expression
@@ -15,14 +16,14 @@ import com.atos.custpro.configuration.domain.exception.InvalidFileStructureExcep
  */
 public class RegexMessageParser implements MessageParser {
 
-    private static final String REGEX_ANYSTRING_PATTERN = "(.*)";
+    private static final String REGEX_ANYSTRING_PATTERN = "([\\w\\W]*)";
     private final StringBuilder stringBuilder = new StringBuilder();
 
     @Override
     public KeyValuePair parseMessage(final String message, final FileStructureConfiguration configuration) throws InvalidFileStructureException {
         Matcher matcher = createMatcher(message, configuration);
         if (!matcher.matches()) {
-            throw new InvalidFileStructureException(message);
+            throw new InvalidMessageException(message);
         }
 
         return new KeyValuePair(matcher.group(1), matcher.group(2));
