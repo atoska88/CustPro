@@ -10,16 +10,18 @@ import com.atos.custpro.configuration.domain.exception.InvalidFileStructureExcep
  */
 public class InvalidMessageException extends InvalidFileStructureException {
 
+    private static final String MESSAGE_PATTERN = "The following message could not been parsed: '%s'";
+
     /**
      * Constructs a new exception with the given message.
      * @param message the message
      */
-    public InvalidMessageException(final String[] message) {
+    public InvalidMessageException(final String message) {
         super(createMessage(message));
     }
 
-    private static String createMessage(final String[] message) {
-        return message.toString();
+    private static String createMessage(final String message) {
+        return String.format(MESSAGE_PATTERN, message);
     }
 
 }

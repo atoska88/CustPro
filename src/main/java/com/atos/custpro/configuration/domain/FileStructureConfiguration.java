@@ -16,10 +16,26 @@ public class FileStructureConfiguration {
     private Affix fileAffix;
     private Affix propertyAffix;
     private Affix keyAffix;
-    private String keyValueSeparator;
+    private final String keyValueSeparator;
     private Affix valueAffix;
-    private String lineTerminator;
-    private String charSet;
+    private final String lineTerminator;
+    private final String charSet;
+
+    /**
+     * Constructs a new instance with the given parameters. The affixes
+     * are not initalised, can be set via the setter methods.
+     * @param keyValueSeparator the key-value separator, stands after
+     * the key and before the value
+     * @param lineTerminator the line terminator string, must contain
+     * the carriage return or line feed character too
+     * @param charSet the character encoding that should be used
+     * during the parsing
+     */
+    public FileStructureConfiguration(final String keyValueSeparator, final String lineTerminator, final String charSet) {
+        this.keyValueSeparator = keyValueSeparator;
+        this.lineTerminator = lineTerminator;
+        this.charSet = charSet;
+    }
 
     public Affix getFileAffix() {
         return nullSafeGet(fileAffix);
@@ -49,10 +65,6 @@ public class FileStructureConfiguration {
         return keyValueSeparator;
     }
 
-    public void setKeyValueSeparator(final String keyValueSeparator) {
-        this.keyValueSeparator = keyValueSeparator;
-    }
-
     public Affix getValueAffix() {
         return nullSafeGet(valueAffix);
     }
@@ -65,16 +77,8 @@ public class FileStructureConfiguration {
         return lineTerminator;
     }
 
-    public void setLineTerminator(final String lineTerminator) {
-        this.lineTerminator = lineTerminator;
-    }
-
     public String getCharSet() {
         return charSet;
-    }
-
-    public void setCharSet(final String charSet) {
-        this.charSet = charSet;
     }
 
     private Affix nullSafeGet(final Affix affix) {

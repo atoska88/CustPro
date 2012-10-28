@@ -42,8 +42,6 @@
     <constructor-arg name="messageParser" ref="regexMessageParser" />
   </bean>
 
-  <bean id="messageParser" class="com.atos.custpro.parser.message.SplitterMessageParser" />
-
   <bean id="regexMessageParser" class="com.atos.custpro.parser.message.RegexMessageParser" />
 
 </beans>

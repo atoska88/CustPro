@@ -18,11 +18,9 @@ public class SimpleJaxbConfigurationTransformer implements JaxbConfigurationTran
     @Override
     public FileStructureWrapper transform(final Configuration jaxbConfiguration) throws XmlParsingException {
         String name = jaxbConfiguration.getName();
-        FileStructureConfiguration configuration = new FileStructureConfiguration();
+        FileStructureConfiguration configuration = new FileStructureConfiguration(jaxbConfiguration.getKeyValueSeparator(),
+                jaxbConfiguration.getLineTerminator(), jaxbConfiguration.getCharset());
         transformAffixes(jaxbConfiguration, configuration);
-        configuration.setCharSet(jaxbConfiguration.getCharset());
-        configuration.setKeyValueSeparator(jaxbConfiguration.getKeyValueSeparator());
-        configuration.setLineTerminator(jaxbConfiguration.getLineTerminator());
         return new FileStructureWrapper(name, configuration);
     }
 
