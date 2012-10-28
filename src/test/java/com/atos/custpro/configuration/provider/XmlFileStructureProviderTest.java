@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.atos.custpro.configuration.TestConfigurations;
 import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 import com.atos.custpro.configuration.loader.FileStructureWrapper;
 import com.atos.custpro.configuration.loader.xml.XmlConfigurationLoader;
@@ -32,7 +33,7 @@ public class XmlFileStructureProviderTest {
     private ResourceLoader resourceLoader;
     private XmlConfigurationLoader configurationLoader;
     private final String[] configLocations = new String[]{"configurations.xml"};
-    private final FileStructureConfiguration configuration = new FileStructureConfiguration();
+    private final FileStructureConfiguration configuration = TestConfigurations.EMPTY_CONFIGURATION;
     private final FileStructureWrapper[] wrapperArray = new FileStructureWrapper[]{new FileStructureWrapper("name", configuration)};
     private Logger logger;
 

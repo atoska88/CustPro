@@ -19,6 +19,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.atos.custpro.configuration.TestConfigurations;
 import com.atos.custpro.configuration.domain.FileStructureConfiguration;
 import com.atos.custpro.configuration.loader.FileStructureWrapper;
 import com.atos.custpro.configuration.loader.xml.exception.XmlParsingException;
@@ -45,7 +46,7 @@ public class JaxbXmlConfigurationLoaderTest {
     private final Custpro rootObject = new Custpro();
     private final Configuration jaxbAndroidConfiguration = new Configuration();
     private InputStream inputStream;
-    private final FileStructureConfiguration custProAndroidConfiguration = new FileStructureConfiguration();
+    private final FileStructureConfiguration custProAndroidConfiguration = TestConfigurations.ANDROID_CONFIGURATION;
     private Logger logger;
 
     @BeforeTest
