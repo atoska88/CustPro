@@ -16,6 +16,7 @@ import com.atos.custpro.parser.message.MessageParser;
  */
 public class LineStringParser implements StringParser {
 
+    private boolean failOnUnparsedMessage = false;
     private final MessageParser messageParser;
 
     /**
@@ -33,11 +34,26 @@ public class LineStringParser implements StringParser {
         if (!cleanedInput.isEmpty()) {
             String[] messages = cleanedInput.split(configuration.getLineTerminator());
             for (String messageLine : messages) {
-                KeyValuePair parseMessage = messageParser.parseMessage(messageLine, configuration);
-                result.put(parseMessage.getKey(), parseMessage.getValue());
+                tryToParseMessage(configuration, result, messageLine);
             }
         }
         return result;
 
+    }
+
+    private void tryToParseMessage(final FileStructureConfiguration configuration, final Properties result, final String messageLine)
+        throws InvalidFileStructureException {
+        try {
+            KeyValuePair parseMessage = messageParser.parseMessage(messageLine, configuration);
+            result.put(parseMessage.getKey(), parseMessage.getValue());
+        } catch (InvalidFileStructureException exception) {
+            if (failOnUnparsedMessage) {
+                throw exception;
+            }
+        }
+    }
+
+    void setFailOnUnparsedMessage(final boolean failOnUnparsedMessage) {
+        this.failOnUnparsedMessage = failOnUnparsedMessage;
     }
 }
