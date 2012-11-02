@@ -32,11 +32,10 @@
   <bean id="contextProvider" class="com.atos.custpro.configuration.loader.xml.internal.JaxbContextProvider" />
 
 
-  <bean id="byteArrayOutputStream" class=" java.io.ByteArrayOutputStream" scope="prototype" />
+  <bean id="byteArrayOutputStream" class="java.io.ByteArrayOutputStream" scope="prototype" />
 
 
-  <bean id="jaxbTransformer"
-    class="com.atos.custpro.configuration.loader.xml.internal.SimpleJaxbConfigurationTransformer" />
+  <bean id="jaxbTransformer" class="com.atos.custpro.configuration.loader.xml.internal.SimpleJaxbConfigurationTransformer" />
 
   <bean id="stringParser" class="com.atos.custpro.parser.LineStringParser">
     <constructor-arg name="messageParser" ref="regexMessageParser" />

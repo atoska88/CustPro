@@ -135,7 +135,8 @@ public class ResourcePropertyParserTest {
         expect(fileStructureProvider.provide(configurationName)).andReturn(emptyConfiguration);
         String wholeInput = null;
         expect(resourceReader.readToString(resource, emptyConfiguration.getCharSet())).andReturn(wholeInput);
-        InvalidFileStructureException fileStructureException = new InvalidFileStructureException("");
+        InvalidFileStructureException fileStructureException = new InvalidFileStructureException(
+                TestConfigurations.EMPTY_CONFIGURATION.getFileAffix(), wholeInput);
         expect(stringParser.parse(wholeInput, emptyConfiguration)).andThrow(fileStructureException);
         mockControl.replay();
         //WHEN

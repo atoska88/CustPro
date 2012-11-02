@@ -6,6 +6,7 @@ import java.util.List;
 import com.atos.custpro.configuration.loader.xml.generated.Affix;
 import com.atos.custpro.configuration.loader.xml.generated.AffixPlace;
 import com.atos.custpro.configuration.loader.xml.generated.Configuration;
+import com.atos.custpro.configuration.loader.xml.generated.Custpro;
 import com.atos.custpro.configuration.loader.xml.generated.ObjectFactory;
 import com.atos.custpro.configuration.loader.xml.generated.RegexAffix;
 
@@ -48,7 +49,9 @@ public abstract class TestJaxbConfigurations {
     }
 
     private static Configuration getLiteralAndroidConfig() {
+        Custpro custPro = getObjectFactory().createCustpro();
         Configuration androidConfig = getObjectFactory().createConfiguration();
+        custPro.getConfiguration().add(androidConfig);
         androidConfig.setCharset(UTF_8_CONSTANT);
         androidConfig.setName("android");
         Affix fileAffix = getObjectFactory().createLiteralAffix();
