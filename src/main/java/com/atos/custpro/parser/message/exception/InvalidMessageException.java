@@ -1,5 +1,6 @@
 package com.atos.custpro.parser.message.exception;
 
+import com.atos.custpro.configuration.domain.Affix;
 import com.atos.custpro.configuration.domain.exception.InvalidFileStructureException;
 
 /**
@@ -15,13 +16,14 @@ public class InvalidMessageException extends InvalidFileStructureException {
     /**
      * Constructs a new exception with the given message.
      * @param message the message
+     * @param affix the affix that did not matched the message
      */
-    public InvalidMessageException(final String message) {
-        super(createMessage(message));
+    public InvalidMessageException(final Affix affix, final String message) {
+        super(affix, message);
     }
 
-    private static String createMessage(final String message) {
-        return String.format(MESSAGE_PATTERN, message);
+    @Override
+    public String getMessage() {
+        return String.format(MESSAGE_PATTERN, getTargetString());
     }
-
 }

@@ -23,7 +23,7 @@ public class RegexMessageParser implements MessageParser {
     public KeyValuePair parseMessage(final String message, final FileStructureConfiguration configuration) throws InvalidFileStructureException {
         Matcher matcher = createMatcher(message, configuration);
         if (!matcher.matches()) {
-            throw new InvalidMessageException(message);
+            throw new InvalidMessageException((Affix) null, message);
         }
 
         return new KeyValuePair(matcher.group(1), matcher.group(2));

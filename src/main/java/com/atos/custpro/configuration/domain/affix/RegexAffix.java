@@ -74,7 +74,7 @@ public class RegexAffix extends AbstractAffix {
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(target);
         if (!matcher.matches()) {
-            throw new InvalidFileStructureException("The target string is not bounded with the affix!");
+            throw new InvalidFileStructureException(this, target);
         }
         return matcher;
     }
