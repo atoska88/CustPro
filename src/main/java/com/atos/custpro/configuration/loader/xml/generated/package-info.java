@@ -1,5 +1,5 @@
 /**
- * Package info for generated beans.
+ * Contains generated beans for jaxb parsing.
  */
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.github.com/atoska88/custpro", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.atos.custpro.configuration.loader.xml.generated;
